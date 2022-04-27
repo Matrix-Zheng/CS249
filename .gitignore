@@ -1,2 +1,4 @@
 *.npy
 *.wav
+.vscode
+.ipynb_checkpoints/*
