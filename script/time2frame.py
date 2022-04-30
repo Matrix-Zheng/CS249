@@ -39,7 +39,7 @@ def time2frame(manifest_path, label_path, frame_path):
 
 if __name__ == "__main__":
     manifest_path = ['/home/zzs/CS249/manifest/train.tsv', '/home/zzs/CS249/manifest/dev.tsv']
-    label_path = ['/home/zzs/CS249/labels/train_label.txt', '/home/zzs/CS249/labels/dev_label.txt']
-    frame_path = ['/home/zzs/CS249/labels/train_frame.npy', '/home/zzs/CS249/labels/dev_frame.npy']
+    label_path = ['/home/zzs/CS249/data/labels/train_label.txt', '/home/zzs/CS249/data/labels/dev_label.txt']
+    frame_path = ['/home/zzs/CS249/data/labels/train_frame.npy', '/home/zzs/CS249/data/labels/dev_frame.npy']
     for i in range(2):
         time2frame(manifest_path[i], label_path[i], frame_path[i])

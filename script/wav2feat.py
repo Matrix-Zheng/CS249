@@ -1,4 +1,4 @@
-from speech_features import mfcc
+from speech_features import mfcc, delta
 import scipy.io.wavfile as wav
 import os
 import math
@@ -38,16 +38,20 @@ def main(args):
                 
                 sample_rate, wav_data = wav.read(wav_path)
                 features = mfcc(wav_data, sample_rate)
-            
-                if features.shape[0] > lengths:
-                    features = features[:lengths, :]
-                elif features.shape[0] < lengths:
-                    temp = np.zeros((lengths, features.shape[1]))
-                    temp[:features.shape[0], :] = features
-                    features = temp
+                d_features = delta(features, 1)
+                dd_features = delta(features, 2)
+
+                mfccs = np.hstack((features, d_features, dd_features))
+
+                if mfccs.shape[0] > lengths:
+                    mfccs = mfccs[:lengths, :]
+                elif mfccs.shape[0] < lengths:
+                    temp = np.zeros((lengths, mfccs.shape[1]))
+                    temp[:mfccs.shape[0], :] = mfccs
+                    mfccs = temp
                 
-                assert features.shape[0] == lengths
-                npaa.append(features)
+                assert mfccs.shape[0] == lengths
+                npaa.append(mfccs)
             
 
 if __name__ == '__main__':
