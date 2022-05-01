@@ -5,28 +5,22 @@ import json
 
 import os 
 
-if __name__ == "__main__":
-    #parser = argparse.ArgumentParser(description='Analyze input wave-file and save detected speech interval to json file.')
-    # parser.add_argument('inputfile', metavar='INPUTWAVE',
-    #                     help='the full path to input wave file')
-    # parser.add_argument('outputfile', metavar='OUTPUTFILE',
-    #                     help='the full path to output json file to save detected speech intervals')
-    #args = parser.parse_args()
-    
-    os.makedirs('pseudo-data', exist_ok=True)
-    
-    filename = 'pseudo-data/task1_dev.txt'
-    root = '/home/matrix/Desktop/智能语音技术/project/vad/wavs/dev'
-    
-    walkpath = list(os.walk(root))[0][2]
-    
-    fr = open(filename, 'w')
-    for wav in walkpath:
-        path = os.path.join(root, wav)
-        v = VoiceActivityDetector(path)
-        raw_detection = v.detect_speech()
-        speech_labels = v.convert_windows_to_readible_labels(raw_detection)
+def main(manifest, output_dir):
+    with open(manifest, 'r') as fr, open(output_dir, 'w') as fw:
+        root_path = fr.readline().rstrip('\n')
+        for line in fr:
+            wav_path = os.path.join(root_path, line.rsplit("\t")[0])
+            wav_name = line.rsplit("\t")[0].split("/")[1].split('.')[0]
+            
+            v = VoiceActivityDetector(wav_path) 
+            raw_detection = v.detect_speech()
+            speech_labels = v.convert_windows_to_readible_labels(raw_detection)
+            print(wav_name, speech_labels, file=fw)
 
-        fr.write(f"{wav} {speech_labels}\n")
 
-    fr.close()
+if __name__ == '__main__':
+    manifest = ['/home/zzs/CS249/manifest/dev.tsv', '/home/zzs/CS249/manifest/test.tsv']
+    output_dir = ['/home/zzs/CS249/results/task1/dev_result.txt', '/home/zzs/CS249/results/task1/test_result.txt']
+    for i in range(2):
+        main(manifest[i], output_dir[i])
+

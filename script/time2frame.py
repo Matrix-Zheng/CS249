@@ -32,7 +32,6 @@ def time2frame(manifest_path, label_path, frame_path):
                     assert frames.shape[0] == int(lengths)
                     
                     npaa.append(frames)
-                    break
             
             
             #label_pad = np.pad(label, (0, np.maximum(frames - len(label), 0)))[:frames]
