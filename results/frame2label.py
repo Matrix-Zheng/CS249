@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import numpy as np
+from smoothing import smooth
 
 def prediction_to_vad_label(
     prediction,
@@ -83,15 +84,16 @@ def main(npy_path, loc):
             start = offsets[i]
             end = start + sizes[i]
             vad_label = prediction_to_vad_label(data[start:end])
-            print(wav_names[i], vad_label, file=f)
+            smooth_vad_label = smooth(vad_label)
+            print(wav_names[i], smooth_vad_label, file=f)
 
 
 dev_loc = get_offset('/home/zzs/CS249/manifest/dev.tsv')
 test_loc = get_offset('/home/zzs/CS249/manifest/test.tsv')
 
 
-dev_npy = "/home/zzs/CS249/results/dev_frame.npy"
-test_npy = "/home/zzs/CS249/results/test_frame.npy"
+dev_npy = "/home/zzs/CS249/results/task2/dev_frame.npy"
+test_npy = "/home/zzs/CS249/results/task2/test_frame.npy"
 
 main(dev_npy, dev_loc)
 main(test_npy, test_loc)
