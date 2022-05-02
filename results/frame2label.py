@@ -79,7 +79,7 @@ def main(npy_path, loc):
     sizes = loc['sizes']
     wav_names = loc['wav_names']
 
-    with open(npy_path.replace('.npy', '.txt'), 'w') as f:
+    with open(npy_path.replace('frame.npy', 'pred.txt'), 'w') as f:
         for i in range(len(offsets)):
             start = offsets[i]
             end = start + sizes[i]

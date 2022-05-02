@@ -11,7 +11,7 @@ from vad_utils import parse_vad_label
 frame_size = 0.025
 frame_shift = 0.01
 
-def time2frame(manifest_path, label_path, frame_path):
+def label2frame(manifest_path, label_path, frame_path):
     with open(manifest_path, 'r') as mf, open(
         label_path, 'r') as lf, NpyAppendArray(frame_path) as npaa:
         mf.readline()
@@ -22,7 +22,14 @@ def time2frame(manifest_path, label_path, frame_path):
 
             for idx, nl in enumerate(name_label):
                 if nl.split(maxsplit=1)[0] == wav_name:
-                    name, time = nl.strip().split(maxsplit=1)
+                    try:
+                        name, time = nl.strip().split(maxsplit=1)
+                    except:
+                       name = nl.strip().split(maxsplit=1)
+                       time = "0,0.1"
+                       # This step prevent the program from crashing when there are no label sequence
+                       # but 0, 0.1 is less than the gap in the later file.
+
                     name_label.pop(idx)
                     frames = parse_vad_label(time, frame_size, frame_shift) 
 
@@ -37,8 +44,8 @@ def time2frame(manifest_path, label_path, frame_path):
             #label_pad = np.pad(label, (0, np.maximum(frames - len(label), 0)))[:frames]
 
 if __name__ == "__main__":
-    manifest_path = ['/home/zzs/CS249/manifest/train.tsv', '/home/zzs/CS249/manifest/dev.tsv']
-    label_path = ['/home/zzs/CS249/data/labels/train_label.txt', '/home/zzs/CS249/data/labels/dev_label.txt']
-    frame_path = ['/home/zzs/CS249/data/labels/train_frame.npy', '/home/zzs/CS249/data/labels/dev_frame.npy']
+    manifest_path = ['/home/zzs/CS249/manifest/dev.tsv', '/home/zzs/CS249/manifest/test.tsv']
+    label_path = ['/home/zzs/CS249/results/task1/dev_pred_label.txt', '/home/zzs/CS249/results/task1/test_pred_label.txt']
+    frame_path = ['/home/zzs/CS249/results/task1/dev_frame.npy', '/home/zzs/CS249/results/task1/test_frame.npy']
     for i in range(2):
-        time2frame(manifest_path[i], label_path[i], frame_path[i])
+        label2frame(manifest_path[i], label_path[i], frame_path[i])

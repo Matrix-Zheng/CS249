@@ -26,13 +26,13 @@ manifest/
 results/
 |-- frame2label.py
 |-- task1
-|   |-- dev_result.txt
-|   `-- test_result.txt
+|   |-- dev_pred_label.txt
+|   `-- test_pred_label.txt
 `-- task2
     |-- dev_frame.npy
-    |-- dev_frame.txt
+    |-- dev_pred_label.txt
     |-- test_frame.npy
-    `-- test_frame.txt
+    `-- test_pred_label.txt
 
 ```
 
@@ -67,7 +67,7 @@ script/
 python script/manifest.py /path/to/wav --dest /path/to/tsv
 
 # Step2: turn train and dev label into npy files in 0-1 format
-python script/time2frame.py 
+python script/label2frame.py 
 # Before running this python script, you need to dive into it and modify the path in main
 
 # Step3: extract mfcc features
@@ -82,4 +82,22 @@ python results/frame2label.py
 ```
 
 ## How to evaluate our results?
-TO DO: !
+```bash
+python results/evaluate.py 
+# Also, before you run, please change the path in python file
+```
+
+## Final Results
+
+### Task1
+| Accuracy | Balanced Accuracy | Precision|Recall|F1|Cross-entropy Loss|AUC|EER|
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| 0.375 | 0.565 | 0.897 | 0.264 | 0.408 | 21.572 | 0.565 | 0.736 |
+
+### Task2
+
+| Accuracy | Balanced Accuracy | Precision|Recall|F1|Cross-entropy Loss|AUC|EER|
+| :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| 0.916 | 0.898 | 0.969 | 0.926 | 0.947 | 2.912 | 0.898 | 0.129 |
+
+

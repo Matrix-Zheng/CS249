@@ -77,6 +77,6 @@ def main(prediction, label):
     print('EER: {:.3f}'.format(eer))
 
 if __name__ == '__main__':
-    prediction = np.load('/home/zzs/CS249/results/task2/dev_frame.npy')
+    prediction = np.load('/home/zzs/CS249/results/task1/dev_frame.npy')
     label = np.load('/home/zzs/CS249/data/labels/dev_frame.npy')
     main(prediction, label)
