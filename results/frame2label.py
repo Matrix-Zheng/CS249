@@ -88,12 +88,12 @@ def main(npy_path, loc):
             print(wav_names[i], smooth_vad_label, file=f)
 
 
-dev_loc = get_offset('/home/zzs/CS249/manifest/dev.tsv')
-test_loc = get_offset('/home/zzs/CS249/manifest/test.tsv')
+dev_loc = get_offset('../manifest/dev.tsv')
+test_loc = get_offset('../manifest/test.tsv')
 
 
-dev_npy = "/home/zzs/CS249/results/task2/dev_frame.npy"
-test_npy = "/home/zzs/CS249/results/task2/test_frame.npy"
+dev_npy = "task2/dev_frame.npy"
+test_npy = "task2/test_frame.npy"
 
 main(dev_npy, dev_loc)
 main(test_npy, test_loc)

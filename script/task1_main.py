@@ -19,8 +19,8 @@ def main(manifest, output_dir):
 
 
 if __name__ == '__main__':
-    manifest = ['/home/zzs/CS249/manifest/dev.tsv', '/home/zzs/CS249/manifest/test.tsv']
-    output_dir = ['/home/zzs/CS249/results/task1/dev_result.txt', '/home/zzs/CS249/results/task1/test_result.txt']
+    manifest = ['../manifest/dev.tsv', '../manifest/test.tsv']
+    output_dir = ['../results/task1/dev_result.txt', '../results/task1/test_result.txt']
     for i in range(2):
         main(manifest[i], output_dir[i])
 

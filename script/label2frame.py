@@ -44,8 +44,8 @@ def label2frame(manifest_path, label_path, frame_path):
             #label_pad = np.pad(label, (0, np.maximum(frames - len(label), 0)))[:frames]
 
 if __name__ == "__main__":
-    manifest_path = ['/home/zzs/CS249/manifest/dev.tsv', '/home/zzs/CS249/manifest/test.tsv']
-    label_path = ['/home/zzs/CS249/results/task1/dev_pred_label.txt', '/home/zzs/CS249/results/task1/test_pred_label.txt']
-    frame_path = ['/home/zzs/CS249/results/task1/dev_frame.npy', '/home/zzs/CS249/results/task1/test_frame.npy']
+    manifest_path = ['../manifest/dev.tsv', '../manifest/test.tsv']
+    label_path = ['../results/task1/dev_pred_label.txt', '../results/task1/test_pred_label.txt']
+    frame_path = ['../results/task1/dev_frame.npy', '../results/task1/test_frame.npy']
     for i in range(2):
         label2frame(manifest_path[i], label_path[i], frame_path[i])
